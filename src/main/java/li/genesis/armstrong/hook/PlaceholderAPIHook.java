@@ -1,15 +1,16 @@
-package xyz.refinedev.lunar.hook;
+package li.genesis.armstrong.hook;
 
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import xyz.refinedev.lunar.utils.Utils;
+import li.genesis.armstrong.utils.Utils;
+
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 public class PlaceholderAPIHook extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
-        return "lunar";
+        return "armstrong";
     }
 
     @Override
@@ -19,7 +20,7 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getAuthor() {
-        return "RefineDevelopment";
+        return "Vaption";
     }
 
     @Override
@@ -30,9 +31,9 @@ public class PlaceholderAPIHook extends PlaceholderExpansion {
     @Override
     public String onPlaceholderRequest(Player player, String identifier) {
 
-        // %lunar_status%
+        // %armstrong_status%
         if (identifier.equalsIgnoreCase("status")) {
-            return Utils.checkLC(player);
+            return Utils.lunarStatus(player);
         }
 
         return null;

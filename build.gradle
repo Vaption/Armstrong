@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '9.1.0'
+}
+
+group = 'li.genesis.armstrong'
+version = '1.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+repositories {
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url 'https://repo.extendedclip.com/releases/' }
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://repo.lunarclient.dev' }
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'com.lunarclient:apollo-api:1.2.0'
+    compileOnly 'com.lunarclient:apollo-extra-adventure4:1.2.0'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
+    implementation 'co.aikar:acf-paper:0.5.1-SNAPSHOT'
+    implementation 'org.bstats:bstats-bukkit:3.1.0'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+processResources {
+    filteringCharset = 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand(version: project.version)
+    }
+}
+
+shadowJar {
+    archiveClassifier.set('')
+    relocate 'co.aikar.commands', 'li.genesis.aikar.commands'
+    relocate 'co.aikar.locales', 'li.genesis.aikar.locales'
+    relocate 'org.bstats', 'li.genesis.bstats'
+}

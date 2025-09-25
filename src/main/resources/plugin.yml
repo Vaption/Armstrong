@@ -1,8 +1,9 @@
-name: LunarUtility
-main: xyz.refinedev.lunar.LunarUtility
+name: Armstrong
+main: li.genesis.armstrong.Armstrong
 authors:
+  - Vaption
   - Dubai
   - RefineDevelopment
-depend: [ LunarClient-API ]
-softdepend: [ PlaceholderAPI ]
-version: ${project.version}
+depend: []
+softdepend: [ Apollo-Bukkit, PlaceholderAPI ]
+version: ${version}

@@ -1,0 +1,54 @@
+name: Build & Release
+
+on:
+  push
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    if: "contains(github.event.head_commit.message, '--release')"
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Grant execute permission to gradlew
+        run: chmod +x gradlew
+
+      - name: Build JAR
+        run: ./gradlew shadowJar
+
+
+      - name: Read version from build.gradle
+        id: get_version
+        run: |
+          VERSION=$(grep "^version *= *'" build.gradle | cut -d"'" -f2)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Using version $VERSION for tag"
+
+      - name: Create tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git tag ${{ env.VERSION }}
+          git push origin ${{ env.VERSION }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Armstrong-${{ env.VERSION }}
+          tag_name: ${{ env.VERSION }}
+          files: ./build/libs/*.jar
+          body_path: ./CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
