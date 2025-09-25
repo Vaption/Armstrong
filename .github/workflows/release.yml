@@ -1,7 +1,9 @@
 name: Build & Release
 
 on:
-  push
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -46,7 +48,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Armstrong-${{ env.VERSION }}
+          name: Armstrong v${{ env.VERSION }}
           tag_name: ${{ env.VERSION }}
           files: ./build/libs/*.jar
           body_path: ./CHANGELOG.md

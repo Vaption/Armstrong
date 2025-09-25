@@ -5,8 +5,8 @@
 
 ### 🚀 Armstrong
 [![Discord](https://img.shields.io/discord/1332991105695875123?logo=discord&label=discord)](https://discord.genesis.li)
-[![Latest Release](https://img.shields.io/github/v/release/Vaption/Armstrong.svg)](https://github.com/Vaption/Armstrong/releases)
-[![License](https://img.shields.io/github/license/Vaption/Armstrong.svg)](https://github.com/Vaption/Armstrong/blob/master/LICENSE)
+[![Latest](https://img.shields.io/github/v/release/Vaption/Armstrong.svg)](https://github.com/Vaption/Armstrong/releases/latest)
+[![License](https://img.shields.io/github/license/Vaption/Armstrong.svg)](https://github.com/Vaption/Armstrong/blob/main/LICENSE)
 
 **Armstrong** is a simple plugin that utilizes
 [LunarClient](https://lunarclient.com)'s [Apollo API](https://github.com/LunarClient/Apollo).   
