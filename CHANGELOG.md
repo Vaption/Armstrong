@@ -1,0 +1,12 @@
+### ✨ First Release
+- Renamed the plugin to "Armstrong"
+- Migrated to Gradle (previously used Maven)
+- Implemented basic plugin metrics using bStats
+- Refactored the codebase to use the new LunarClient API (Apollo)
+- Changed permission prefixes to `armstrong.` (previously `lunar.`)
+- Changed the status placeholer to `%armstrong_status%` (previously `%lunar_status%`)
+- Changed the command aliases (now `/lc` or `/armstrong`, and `/lsm` or `/lunarstaffmode`)
+- Updated the nametag module implementation to use a permission-based system (tiers)
+- Removed the waypoints & disabled-mods module (now configurable in Apollo itself)
+- Removed the cooldown module implementation (will come back to the plugin later)
+- Added new issue templates, build & release workflows, a new README.md, and more!
