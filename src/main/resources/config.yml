@@ -1,64 +1,101 @@
-########################
-#     LunarUtility     #
-# By RefineDevelopment #
-########################
+###############################################################################################################
+#                                                                                                             #
+#                                      Armstrong (aka. LunarUtility)                                          #
+#                                                                                                             #
+#                                          Maintained by Vaption                                              #
+#                                  (Originally made by RefineDevelopment)                                     #
+#                                                                                                             #
+###############################################################################################################
 
-#Disabled cooldowns for 1.9+ because of LC API Issue
-COOLDOWN:
-  ENDERPEARL: #Sends cooldown on enderpearl throw
-    ENABLE: true
-    ICON: "ENDER_PEARL"
-    DELAY: 16
-  GAPPLE: #Sends cooldown when a gapple is eaten
-    ENABLE: false
-    ICON: "GOLDEN_APPLE"
-    DELAY: 45
-  COMBAT: #Sends cooldown when a fight happens | both to the damager and the target
-    ENABLE: false
-    ICON: "DIAMOND_SWORD"
-    DELAY: 30
-#Don't set the cooldown to 0 or else the plugin won't work!
-#You have to restart the server whenever you change the delay.
+###############################################################################################################
+#                                                                                                             #
+#   Set this to true if you want to force LunarClient on your server.                                         #
+#   People joining with anything else will be kicked from the server.                                         #
+#   The kick message can be configured below. <space> adds a new line.                                        #
+#                                                                                                             #
+#   Color codes are supported (See https://wiki.ess3.net/mc/).                                                #
+#                                                                                                             #
+###############################################################################################################
 
 REQUIRE-LUNAR:
   ENABLED: false
-  MESSAGE: "&cLunar Client is required to play on the server! <space> &cDownload at &olunarclient.com/download" #<space> adds a new line
+  MESSAGE: "&cLunar Client is required to play on the server! <space> &cDownload at &olunarclient.com/download"
 
-MODS:
-  DISABLE-ALL-MODS: false #This list has to be updated always through the plugin (its not auto)
-  DISABLE-MODS:
-    ENABLED: false
-    MODS:
-     - "skyblockAddons"
-
-WAYPOINT:
-  ENABLED: true #If false, it won't load all the waypoints below
-  WAYPOINTS:
-   - Spawn: # The same name as the waypoint.
-       x: 0
-       y: 100
-       z: 0
-       name: "Spawn"
-       world: "world"
-       color: 0xFF0000 # MUST be a hexadecimal number of a color
-       forced: true
-       visible: true
+###############################################################################################################
+#                                                                                                             #
+#  In Armstrong, the Nametag module supports a permission-based system (tiers):                               #
+#      - You can customize the nametag format based on permissions assigned to players.                       #
+#      - Assuming the player has multiple matching permissions, the highest weight has the highest priority.  #
+#                                                                                                             #
+#  Notes:                                                                                                     #
+#     - Armstrong supports PlaceholderAPI placeholders in nametag formats (if PAPI is installed).             #
+#     - Additionally, you can use <player_name>, <player_displayname>, and <status> placeholders.             #
+#     - You can leave the permission value empty if you want it to apply to all players.                      #
+#     - If none of the defined tiers match, the nametag module skips that line for the player.                #
+#     - Armstrong implements four Apollo nametag lines. Adding more manually does not work (for now).         #
+#                                                                                                             #
+###############################################################################################################
 
 NAMETAG:
-  ENABLE: true #Needs Restart
-  TICKS: "40" #1 second = 20 ticks | Every x seconds the nametag should update
-  FIRST: "&7[<status> &bLC&7]"
+  ENABLE: true      # Enable the Armstrong Apollo nametag module implementation
+  TICKS: 40         # Update interval in ticks
+  FIRST:            # The first line of the nametag
+    ENABLE: true
+    TIERS:
+      staff:
+        permission: "armstrong.nametag.staff"
+        weight: 100
+        format: "&7&o[Staff]"
+      status:
+        permission: "armstrong.nametag.status"
+        weight: 50
+        format: "&7[<status> &bLunarClient&7]"
   SECOND:
     ENABLE: true
-    TAG: "<player_name>" # use <player_displayname> for disguise support
+    TIERS:
+      default:
+        permission: ""
+        weight: 0
+        format: "<player_displayname>"
+  THIRD:
+    ENABLE: false
+    TIERS:
+      vip:
+        permission: "armstrong.nametag.vip"
+        weight: 75
+        format: "&6[VIP]"
+      default:
+        permission: ""
+        weight: 0
+        format: "&7[Player]"
+  FOURTH:
+    ENABLE: false
+    TIERS:
+      default:
+        permission: ""
+        weight: 0
+        format: ""
+
+###############################################################################################################
+#                                                                                                             #
+#  The placeholder text that indicates if user is on/off LunarClient                                          #
+#  This is also used in the %lunar_status% PAPI placeholder, as well as <status> in nametags.                 #
+#                                                                                                             #
+###############################################################################################################
 
 OTHER:
-  ENABLED: "&aON"
-  DISABLED: "&cOFF"
+  ENABLED: "&aON&r"
+  DISABLED: "&cOFF&r"
+
+###############################################################################################################
+#                                                                                                             #
+#  Messages in the plugin. Can be configured to your liking.                                                  #
+#                                                                                                             #
+###############################################################################################################
 
 MESSAGES:
   MAIN:
-    RELOAD: "&6LunarUtility &ehas been reloaded."
+    RELOAD: "&6Armstrong &ehas been reloaded."
     OFFLINE: "&cThat player doesn't exist."
   LUNAR-COMMAND:
     PLAYER: "&6You are currently <status> &eLunarClient."
@@ -67,7 +104,8 @@ MESSAGES:
     ENABLE:
      PLAYER: "&aYou have enabled all LunarClient staff mods."
      TARGET: "&aYou have enabled all LunarClient staff mods for <target>."
-     TO-TARGET: "&aAll LunarClient mods have been enabled for you by <player>."
+     TO-TARGET: "&aAll LunarClient staff mods have been enabled for you by <player>."
+     ERROR: "&cPlayer <player> is not on LunarClient."
     DISABLE:
       PLAYER: "&cYou have disabled your LunarClient staff mods."
       TARGET: "&6You have disabled &e<target>'s &6LunarClient staff mods."
@@ -76,6 +114,6 @@ MESSAGES:
     SEPERATOR: "&7, "
     MESSAGE:
       - "&7&m-----------------------"
-      - "&b&lLunarClient Users &7[<totalUsers>/100]"
+      - "&b&lLunarClient Users &7[<totalUsers>]"
       - "<playerList>"
       - "&7&m-----------------------"

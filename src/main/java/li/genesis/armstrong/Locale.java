@@ -1,13 +1,11 @@
-package xyz.refinedev.lunar;
+package li.genesis.armstrong;
 
-import xyz.refinedev.lunar.utils.Utils;
+import li.genesis.armstrong.utils.Utils;
 
 import java.util.List;
 
 public enum Locale {
-    LUNAR_TAG_1("NAMETAG.FIRST"),
     LUNAR_TAG_TICKS("NAMETAG.TICKS"),
-    LUNAR_TAG_2("NAMETAG.SECOND.TAG"),
     LUNAR_KICK_MESSAGE("REQUIRE-LUNAR.MESSAGE"),
     LUNAR_COMMAND_RELOAD("MESSAGES.MAIN.RELOAD"),
     LUNAR_COMMAND_PLAYER("MESSAGES.LUNAR-COMMAND.PLAYER"),
@@ -19,7 +17,8 @@ public enum Locale {
     LUNAR_STAFF_COMMAND_DISABLE_PLAYER("MESSAGES.LUNAR-STAFF-COMMAND.DISABLE.PLAYER"),
     LUNAR_STAFF_COMMAND_DISABLE_TARGET("MESSAGES.LUNAR-STAFF-COMMAND.DISABLE.TARGET"),
     LUNAR_STAFF_COMMAND_ENABLE_TO_TARGET("MESSAGES.LUNAR-STAFF-COMMAND.ENABLE.TO-TARGET"),
-    LUNAR_STAFF_COMMAND_DISABLE_TO_TARGET("MESSAGES.LUNAR-STAFF-COMMAND.DISABLE.TO-TARGET");
+    LUNAR_STAFF_COMMAND_DISABLE_TO_TARGET("MESSAGES.LUNAR-STAFF-COMMAND.DISABLE.TO-TARGET"),
+    LUNAR_STAFF_COMMAND_ENABLE_ERROR("MESSAGES.LUNAR-STAFF-COMMAND.ENABLE.ERROR");
 
     private final String path;
 
@@ -28,10 +27,10 @@ public enum Locale {
     }
 
     public String messageFormat() {
-        return Utils.translate(LunarUtility.getInstance().getConfig().getString(this.path));
+        return Utils.translate(Armstrong.getInstance().getConfig().getString(this.path));
     }
 
     public final List<String> messageFormatList() {
-        return Utils.translate(LunarUtility.getInstance().getConfig().getStringList(this.path));
+        return Utils.translate(Armstrong.getInstance().getConfig().getStringList(this.path));
     }
 }
