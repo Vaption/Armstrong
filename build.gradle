@@ -36,6 +36,21 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+tasks.register('runServer', Exec) {
+    dependsOn 'shadowJar'
+    workingDir "$projectDir/server"
+
+    doFirst {
+        def pluginDir = file("$projectDir/server/plugins")
+        def pluginJar = fileTree("$buildDir/libs") { include '*.jar' }.files.max { it.lastModified() }
+
+        delete fileTree(pluginDir) { include 'Armstrong-*.jar' }
+        copy { from pluginJar; into pluginDir }
+    }
+
+    commandLine 'java', '-jar', 'paper.jar', 'nogui'
+}
+
 processResources {
     filteringCharset = 'UTF-8'
     filesMatching('plugin.yml') {
