@@ -5,5 +5,5 @@ authors:
   - Dubai
   - RefineDevelopment
 depend: []
-softdepend: [ Apollo-Bukkit, PlaceholderAPI ]
+softdepend: [ Apollo-Bukkit, PlaceholderAPI, Parties ]
 version: ${version}
