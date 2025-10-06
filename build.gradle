@@ -18,6 +18,7 @@ repositories {
     maven { url 'https://repo.extendedclip.com/releases/' }
     maven { url 'https://jitpack.io' }
     maven { url 'https://repo.lunarclient.dev' }
+    maven { url 'https://repo.alessiodp.com/releases/' }
     mavenCentral()
 }
 
@@ -28,6 +29,7 @@ dependencies {
     compileOnly 'com.lunarclient:apollo-api:1.2.0'
     compileOnly 'com.lunarclient:apollo-extra-adventure4:1.2.0'
     compileOnly 'me.clip:placeholderapi:2.11.6'
+    compileOnly 'com.alessiodp.parties:parties-api:3.2.16'
     implementation 'co.aikar:acf-paper:0.5.1-SNAPSHOT'
     implementation 'org.bstats:bstats-bukkit:3.1.0'
 }
